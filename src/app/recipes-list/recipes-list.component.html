@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+<button routerLink="kako">trasnfer</button>
+<button (click)="cade()">cade</button>
+
+<div *ngIf="filtredRecipes$ |async as recipes" class="container my-4">
+  <div class="card p-3">
+    <div class="card-body">
+      <h5 class="card-title">{{recipes.length}} Results</h5>
+      <!-- <h5 class="card-title">{{recipes}} Results</h5>
+      <h5 class="card-title">{{recipes[0].title}} Results</h5> -->
+      <h6 class="card-subtitle mb-2 text-muted">{{recipes[0]?.title}} Results</h6>
+      <div class="row">
+        <div class="col-recipe" *ngFor="let recipe of recipes">
+          <div class="card h-100 shadow-sm">
+            <img [src]="'assets/recipes/' + recipe.imageUrl" class="card-img-top recipe-image" [alt]="recipe.title">
+            <div class="card-body">
+              <h5 class="card-title">{{recipe?.title}}</h5>
+              <div class="recipe-rating mb-2">
+                <ng-container *ngFor="let rating of [].constructor(recipe.rating)">
+                  <i class="pi pi-star"></i>
+                </ng-container>
+              </div>
+              <p class="card-text text-muted">Prep Time: {{recipe?.prepTime}} min</p>
+              <button class="btn btn-outline-danger btn-sm">
+                <i class="pi pi-heart"></i> Favourite
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
