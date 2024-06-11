@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../model/recipe.model';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 // import { environment } from 'src/environments/environment';
 const BASE_PATH = "http://localhost:3001/api"
 
@@ -20,7 +20,11 @@ export class RecipesService {
     this.filterRecipeSubject.next(criteria);
   }
 
-  saveRecipe(formValue: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(`${BASE_PATH}/recipes/save`, formValue);
+  saveRecipe(formValue: any): Observable<any> {
+    return this.http.post<any>(`${BASE_PATH}/recipes/save`, formValue).pipe(
+      tap(res=>{
+        console.log(res);
+      })
+    );
   }
 }

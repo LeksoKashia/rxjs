@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RouterModule } from '@angular/router';
+import { Recipe } from '../core/model/recipe.model';
 
 
 
@@ -22,6 +23,17 @@ export class RecipeCreationComponent {
 
 
   ngOnInit(): void {
+    this.recipeForm.valueChanges.subscribe(
+    formValue => {
+      console.log(formValue);
+      console.log();
+      
+       this.service.saveRecipe(this.recipeForm.value as Recipe).subscribe(
+        res => console.log("res", res)
+        
+       );
+    }
+    );
   }
 
   recipeForm = this.formBuilder.group({
@@ -36,11 +48,11 @@ export class RecipeCreationComponent {
     steps: ['']
   });
   tags = recipeTags.TAGS;
-  valueChanges$ = this.recipeForm.valueChanges.pipe(
-    concatMap(formValue => this.service.saveRecipe(formValue)),
-    catchError(errors => of(errors)),
-    tap(result=>this.saveSuccess(result))
-  );
+  // valueChanges$ = this.recipeForm.valueChanges.pipe(
+  //   concatMap(formValue => this.service.saveRecipe(formValue)),
+  //   catchError(errors => of(errors)),
+  //   tap(result=>this.saveSuccess(result))
+  // );
 
 
   saveSuccess(result: any) {
