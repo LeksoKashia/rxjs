@@ -5,9 +5,11 @@ export interface Recipe {
   ingredients?: string;
   tags?: string;
   imageUrl?: string;
-  cookingTime?: number;
-  prepTime?: number;
+  cookingTime?: string;
+  prepTime?: string;
   yield?: number;
   steps?: string;
   rating?:number;
+  category?:string;
+
 }
